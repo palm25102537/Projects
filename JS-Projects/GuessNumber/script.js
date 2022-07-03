@@ -12,7 +12,7 @@
 // console.log(document.querySelector('.guess').value);
 let score = 20;
 
-const random = Math.trunc(Math.random() * 20) + 1;
+let random = Math.trunc(Math.random() * 20) + 1;
 
 const check = document.querySelector('.check');
 check.addEventListener('click', function () {
@@ -27,6 +27,9 @@ check.addEventListener('click', function () {
     return;
   } else if (+guess.value === random) {
     message.textContent = 'Correct!';
+    document.querySelector('body').style.backgroundColor = '#60b347';
+    document.querySelector('.number').style.width = '30rem';
+    document.querySelector('.number').textContent = random;
   } else if (+guess.value > random) {
     if (score > 1) {
       message.textContent = 'Too high!';
@@ -48,4 +51,20 @@ check.addEventListener('click', function () {
       number.textContent = random;
     }
   }
+});
+
+const again = document.querySelector('.again');
+again.addEventListener('click', function () {
+  score = 20;
+  random = Math.trunc(Math.random() * 20) + 1;
+  const newScore = document.querySelector('.score');
+  const guess = document.querySelector('.guess');
+  const message = document.querySelector('.message');
+
+  newScore.textContent = score;
+  message.textContent = 'Start guessing...';
+  document.querySelector('.number').textContent = '?';
+  guess.value = '';
+  document.querySelector('body').style.backgroundColor = '#222';
+  document.querySelector('.number').style.width = '15rem';
 });
