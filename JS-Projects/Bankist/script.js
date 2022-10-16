@@ -79,6 +79,27 @@ const displayMovements = function (movements) {
 };
 
 displayMovements(account1.movements);
+
+function createUsername(accs) {
+  accs.forEach(acc => {
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(item => item[0])
+      .join('');
+  });
+}
+
+createUsername(accounts);
+console.log(accounts);
+// const user = 'Steven Thomas William';
+// const username = user
+//   .toLowerCase()
+//   .split(' ')
+//   .map(item => item[0])
+//   .join('');
+
+// console.log(username);
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -92,3 +113,23 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+const eurToUsdRate = 1.1;
+
+const movementsInUS = movements.map(item => item * eurToUsdRate);
+const movementsInUSFor = [];
+for (let mov of movements) {
+  movementsInUSFor.push(mov * eurToUsdRate);
+}
+
+const movementDesc = movements.map((item, i) => {
+  if (item > 0) {
+    return `Movement ${i + 1}: You deposited ${item}`;
+  } else {
+    return `Mover ${i + 1}: You withdrew ${Math.abs(item)}`;
+  }
+});
+
+// console.log('move', movements);
+// console.log('new move', movementsInUS);
+// console.log('new move for', movementsInUSFor);
+// console.log(movementDesc);
