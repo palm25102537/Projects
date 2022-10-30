@@ -133,3 +133,19 @@ const movementDesc = movements.map((item, i) => {
 // console.log('new move', movementsInUS);
 // console.log('new move for', movementsInUSFor);
 // console.log(movementDesc);
+
+// const balance = movements.reduce((acc, cur, i, arr) => {
+//   console.log(i, acc);
+//   return acc + cur;
+// }, 0 /* acc = 0 when iteration 0*/);
+
+// console.log('balance', balance);
+
+function calcDisplayBalance(movements) {
+  const balance = movements.reduce((acc, mov) => {
+    return acc + mov;
+  }, 0);
+  labelBalance.textContent = balance + ' ' + 'EUR';
+}
+
+calcDisplayBalance(account1.movements);
