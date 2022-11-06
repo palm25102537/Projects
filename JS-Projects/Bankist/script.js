@@ -149,3 +149,38 @@ function calcDisplayBalance(movements) {
 }
 
 calcDisplayBalance(account1.movements);
+
+function filterByTransaction(transaction) {
+  if (transaction === 'in') {
+    return mov => mov > 0;
+  }
+
+  if (transaction === 'out') {
+    return mov => mov < 0;
+  }
+}
+
+function calTotalInOrOutDisplayBalance(movements, transaction) {
+  const total = movements
+    .filter(filterByTransaction(transaction))
+    .reduce((acc, mov) => acc + mov, 0);
+  if (transaction === 'in') {
+    labelSumIn.textContent = `${total}€`;
+  }
+
+  if (transaction === 'out') {
+    labelSumOut.textContent = `${Math.abs(total)}€`;
+  }
+}
+
+function calIntDisplay(movements, intRate) {
+  const int = movements
+    .filter(filterByTransaction('in'))
+    .map(mov => (mov * intRate) / 100)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumInterest.textContent = `${int}€`;
+}
+
+calTotalInOrOutDisplayBalance(account1.movements, 'in');
+calTotalInOrOutDisplayBalance(account1.movements, 'out');
+calIntDisplay(account1.movements, account1.interestRate);
