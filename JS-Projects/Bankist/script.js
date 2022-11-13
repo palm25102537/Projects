@@ -71,7 +71,7 @@ const displayMovements = function (movements) {
       idx + 1
     } ${type}</div>
       <div class="movements__date">3 days ago</div>
-      <div class="movements__value">${item}</div>
+      <div class="movements__value">${item}€</div>
     </div>
     `;
     containerMovements.insertAdjacentHTML('afterbegin', html);
@@ -118,7 +118,7 @@ const eurToUsdRate = 1.1;
 const movementsInUS = movements.map(item => item * eurToUsdRate);
 const movementsInUSFor = [];
 for (let mov of movements) {
-  movementsInUSFor.push(mov * eurToUsdRate);
+  movementsInUSFor.push(`${mov * eurToUsdRate}€`);
 }
 
 const movementDesc = movements.map((item, i) => {
@@ -145,7 +145,7 @@ function calcDisplayBalance(movements) {
   const balance = movements.reduce((acc, mov) => {
     return acc + mov;
   }, 0);
-  labelBalance.textContent = balance + ' ' + 'EUR';
+  labelBalance.textContent = balance + ' ' + '€';
 }
 
 calcDisplayBalance(account1.movements);
@@ -181,6 +181,22 @@ function calIntDisplay(movements, intRate) {
   labelSumInterest.textContent = `${int}€`;
 }
 
-calTotalInOrOutDisplayBalance(account1.movements, 'in');
-calTotalInOrOutDisplayBalance(account1.movements, 'out');
-calIntDisplay(account1.movements, account1.interestRate);
+btnLogin.addEventListener('click', e => {
+  e.preventDefault();
+  let currAccount;
+
+  currAccount = accounts.find(acc => {
+    return acc.username === inputLoginUsername.value;
+  });
+
+  if (currAccount.pin === Number(inputLoginPin.value)) {
+    labelWelcome.textContent = `Welcome back, ${
+      currAccount.owner.split(' ')[0]
+    }`;
+    containerApp.style.opacity = 100;
+    displayMovements(currAccount.movements);
+    calTotalInOrOutDisplayBalance(currAccount.movements, 'in');
+    calTotalInOrOutDisplayBalance(currAccount.movements, 'out');
+    calIntDisplay(currAccount.movements, currAccount.interestRate);
+  }
+});
