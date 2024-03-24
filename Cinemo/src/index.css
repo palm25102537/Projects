@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --app-height: 100dvh;
+}
+
+body {
+  background-color: #101418;
+}
+
+.login-box {
+  background: #f5f5f1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  box-shadow: 0 14px 28px rgba(255, 255, 255, 0.25),
+    0 10px 10px rgba(255, 255, 255, 0.22);
+  cursor: pointer;
+  transform: translateY(10px);
+}
+
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+ul.custom-ul {
+  list-style-position: inside;
+}
+
+ul.custom-ul > li:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+ul.custom-ul > li::marker {
+  display: inline-block;
+  content: "⏵";
+  color: #b81d24;
+
+  letter-spacing: 8px;
+}
+
+.break {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
